@@ -15,7 +15,6 @@ describe('auth routes', () => {
         expect(res.body).toEqual({
           _id: expect.any(String),
           username: 'bob@bob.com',
-          // passwordHash: 'bobspassword',
           profilePhotoUrl: 'cat@cat.com',
           __v: 0
         });
