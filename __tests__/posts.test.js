@@ -1,9 +1,9 @@
 const { getAgent, getUser, getPost } = require('../db/data-helpers');
 
 describe('post routes', () => {
+
   it('creates a post', async() => {
     const user = await getUser({ email: 'test@test.com' });
-
     return getAgent()
       .post('/api/v1/posts')
       .send({
