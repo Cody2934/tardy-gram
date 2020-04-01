@@ -1,9 +1,10 @@
 const { getAgent, getUser, getPost } = require('../db/data-helpers');
 
+
 describe('post routes', () => {
 
   it('creates a post', async() => {
-    const user = await getUser({ email: 'test@test.com' });
+    const user = await getUser({ username: 'test@test.com' });
     return getAgent()
       .post('/api/v1/posts')
       .send({
@@ -12,10 +13,10 @@ describe('post routes', () => {
         tags: ['these are tags']
       })
       .then(res => {
-        expect(res.user).toEqual({
+        expect(res.body).toEqual({
           _id: expect.any(String),
           user: user._id,
-          photoUrl: 'this sucks',
+          photoUrl: 'placekitten',
           caption: 'this sucks',
           tags: ['these are tags'],
           __v: 0
@@ -24,11 +25,10 @@ describe('post routes', () => {
   });
 
   it('updates a post', async() => {
-    const user = await getUser({ email: 'test@test.com' });
+    const user = await getUser({ username: 'test@test.com' });
     const post = await getPost({ user: user._id });
-
     return getAgent()
-      .patch('/api/v1/posts/${post._id}')
+      .patch(`/api/v1/posts/${post._id}`)
       .send({ caption: 'this rocks' })
       .then(res => {
         expect(res.body).toEqual({
@@ -39,11 +39,10 @@ describe('post routes', () => {
   });
 
   it('deletes a post', async() => {
-    const user = await getUser({ email: 'test@test.com' });
+    const user = await getUser({ username: 'test@test.com' });
     const post = await getPost({ user: user._id });
-
     return getAgent()
-      .delete('/api/v1/posts/${post._id}')
+      .delete(`/api/v1/posts/${post._id}`)
       .then(res => {
         expect(res.body).toEqual(post);
       });

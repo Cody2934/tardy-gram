@@ -16,7 +16,8 @@ module.exports = async({ usersToCreate = 5, postsToCreate = 5 } = {}) => {
   })));
 
   await Post.create([...Array(postsToCreate)].map(() => ({
-    user: chance.pickone(users)._id,
+    user: loggedInUser._id,
+    // user: chance.weighted([loggedInUser, ...users], [2, ...users.map(() => 1)])._id,
     photoUrl: chance.animal(),
     caption: chance.animal(),
     tags: [chance.animal()]
