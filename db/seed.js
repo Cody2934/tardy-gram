@@ -9,6 +9,7 @@ module.exports = async({ usersToCreate = 5, postsToCreate = 5 } = {}) => {
     profilePhotoUrl: 'placekitten'
   });
 
+  // eslint-disable-next-line no-unused-vars
   const users = await User.create([...Array(usersToCreate)].slice(1).map(() => ({
     username: chance.animal(),
     passwordHash: chance.animal(),
@@ -17,7 +18,6 @@ module.exports = async({ usersToCreate = 5, postsToCreate = 5 } = {}) => {
 
   await Post.create([...Array(postsToCreate)].map(() => ({
     user: loggedInUser._id,
-    // user: chance.weighted([loggedInUser, ...users], [2, ...users.map(() => 1)])._id,
     photoUrl: chance.animal(),
     caption: chance.animal(),
     tags: [chance.animal()]
